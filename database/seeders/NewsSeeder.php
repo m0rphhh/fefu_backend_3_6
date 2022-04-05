@@ -2,21 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\News;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class NewsSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            PageSeeder::class,
-            NewsSeeder::class
-        ]);
+        News::query()->delete();
+        News::factory(random_int(20, 30))->create();
     }
 }
