@@ -11,7 +11,6 @@
 @foreach($newsList as $news)
     <h1> {{ $news->title }}</h1>
     <p> {{ $news->text }}</p>
-    <p style="color: rebeccapurple"> {{ $news->slug }}</p>
 @endforeach
 {{ $newsList->links() }}
 </body>
