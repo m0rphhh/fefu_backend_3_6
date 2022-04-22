@@ -20,6 +20,7 @@ class AppealController extends Controller
      *
      * @return JsonResponse
      *
+     * @method POST
      */
     #[OpenApi\Operation(tags: ['appeals'])]
     #[OpenApi\RequestBody(factory: StoreAppealRequestBody::class)]
