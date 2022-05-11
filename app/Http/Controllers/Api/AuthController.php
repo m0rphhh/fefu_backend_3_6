@@ -41,7 +41,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
 
-        Auth::attempt($request->validated(), true);
+        Auth::login($user);
 
         return new JsonResponse([
             'token' => $user->createToken('api')->plainTextToken,
@@ -85,7 +85,7 @@ class AuthController extends Controller
     #[OpenApi\Response(factory: LogoutResponse::class, statusCode: 200)]
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        $request->user()->currentAccessToken()->delete();
 
         return new JsonResponse([]);
     }

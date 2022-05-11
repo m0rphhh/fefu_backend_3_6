@@ -19,13 +19,15 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        User::create([
+        $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password'))
         ]);
 
-        Auth::attempt($request->validated(), true);
+        Auth::login($user);
+        $request->session()->regenerate();
+
 
         return redirect(route('profile'));
     }
