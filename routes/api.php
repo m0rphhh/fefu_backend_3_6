@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppealController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\NewsApiController;
 use App\Http\Controllers\PageApiController;
 use Illuminate\Http\Request;
@@ -32,3 +33,8 @@ Route::apiResource('news', NewsApiController::class)->only([
 ]);
 
 Route::post('/appeal', [ AppealController::class, 'send']);
+
+Route::post('/register', [ AuthController::class, 'register']);
+Route::post('/login', [ AuthController::class, 'login']);
+Route::post('/logout', [ AuthController::class, 'logout'])->middleware('auth:sanctum');
+
