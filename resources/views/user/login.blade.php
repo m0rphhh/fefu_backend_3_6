@@ -31,5 +31,7 @@
     </div>
 
 </form>
+<a href="{{ route('oauth.redirect', ['provider' => 'github']) }}">Login through github</a> <br/>
+<a href="{{ route('oauth.redirect', ['provider' => 'gitlab']) }}">Login through gitlab</a>
 </body>
 </html>

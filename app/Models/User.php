@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'github_id',
+        'github_logged_in_at',
+        'github_registered_at',
+        'gitlab_id',
+        'gitlab_logged_in_at',
+        'gitlab_registered_at'
     ];
 
     /**
@@ -31,6 +37,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'github_id',
+        'gitlab_id',
     ];
 
     /**
@@ -40,5 +48,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'github_logged_in_at' => 'datetime',
+        'github_registered_at' => 'datetime',
+        'gitlab_logged_in_at' => 'datetime',
+        'gitlab_registered_at' => 'datetime',
     ];
 }

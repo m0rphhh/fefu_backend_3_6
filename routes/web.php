@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsWebController;
+use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\PageWebController;
 use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
@@ -36,5 +37,10 @@ Route::post('/logout', [ AuthController::class, 'logout'])->middleware('auth')->
 
 Route::get('/login', [ AuthController::class, 'loginForm'])->middleware('guest')->name('login.form');
 Route::post('/login', [ AuthController::class, 'login'])->middleware('guest')->name('login');
+
+Route::prefix('/oauth')->group(function () {
+    Route::get('/{provider}/redirect', [ OAuthController::class, 'redirectToService'])->name('oauth.redirect');
+    Route::get('/{provider}/login', [ OAuthController::class, 'login'])->name('oauth.login');
+});
 
 Route::get('/profile', [ AuthController::class, 'profile'])->middleware('auth')->name('profile');

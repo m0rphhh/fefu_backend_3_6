@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,6 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return view('user.profile');
+        return view('user.profile', ['user' => UserResource::make(Auth::user())]);
     }
 }
