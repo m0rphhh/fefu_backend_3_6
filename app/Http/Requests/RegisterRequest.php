@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class RegisterRequest extends FormRequest
 {
@@ -18,5 +20,18 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email',
             'password' => 'required|string'
         ];
+    }
+
+    public function withValidator(Validator $validator): void {
+        $validator->after(function ($validator) {
+            $user = User::query()
+                ->where('email', $this->request->get('email'))
+                ->whereNotNull('app_registered_at')
+                ->first();
+
+            if ($user !== null) {
+                $validator->errors()->add('email', 'Email Already registered');
+            }
+        });
     }
 }
