@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     public function withValidator(Validator $validator): void {
         $validator->after(function ($validator) {
             $user = User::query()
-                ->where('email', $this->request->get('email'))
+                ->where('email', $this->validated('email'))
                 ->whereNotNull('app_registered_at')
                 ->first();
 
