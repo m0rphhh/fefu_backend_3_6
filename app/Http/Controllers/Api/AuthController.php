@@ -13,6 +13,7 @@ use App\OpenApi\Responses\AppealOkResponse;
 use App\OpenApi\Responses\AppealValidationErrorsResponse;
 use App\OpenApi\Responses\AuthValidationErrorsResponse;
 use App\OpenApi\Responses\LogoutResponse;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,14 @@ class AuthController extends Controller
     #[OpenApi\Response(factory: AuthValidationErrorsResponse::class, statusCode: 422)]
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
+        $user = User::updateOrCreate([
+            'email' => $request->input('email')
+        ],[
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')),
+            'app_logged_in_at' => Carbon::now(),
+            'app_registered_at' => Carbon::now()
         ]);
 
         Auth::login($user);
@@ -62,6 +67,10 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::attempt($request->validated(), true)) {
+            $user = Auth::user();
+            $user->app_logged_in_at = Carbon::now();
+            $user->save();
+
             return new JsonResponse([
                 'token' => Auth::user()->createToken('api')->plainTextToken,
             ]);
