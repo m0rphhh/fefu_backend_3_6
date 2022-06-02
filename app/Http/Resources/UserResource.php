@@ -19,6 +19,10 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'github_logged_in_at' => $this->github_logged_in_at,
             'github_registered_at' => $this->github_registered_at,
+            'gitlab_logged_in_at' => $this->gitlab_logged_in_at,
+            'gitlab_registered_at' => $this->gitlab_registered_at,
+            'app_logged_in_at' => $this->app_logged_in_at,
+            'app_registered_at' => $this->app_registered_at
         ];
     }
 }

@@ -34,13 +34,13 @@ return [
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/oauth/github/login',
+        'redirect' => env('GITHUB_REDIRECT'),
         'scopes' => ['read:user']
     ],
 
     'gitlab' => [
         'client_id' => env('GITLAB_CLIENT_ID'),
         'client_secret' => env('GITLAB_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/oauth/gitlab/login',
+        'redirect' => env('GITLAB_REDIRECT'),
     ],
 ];

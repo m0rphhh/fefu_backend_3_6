@@ -28,6 +28,15 @@
             Registration date: {{ $user['gitlab_registered_at'] ?? 'Never' }}
         </b>
     </label>
+    <h4>App:</h4>
+    <label>
+        <b>
+            Last login date: {{ $user['app_logged_in_at'] ?? 'Never' }} <br/>
+        </b>
+        <b>
+            Registration date: {{ $user['app_registered_at'] ?? 'Never' }}
+        </b>
+    </label>
 </div>
 <form action="{{route('logout')}}" method="POST">
     @csrf

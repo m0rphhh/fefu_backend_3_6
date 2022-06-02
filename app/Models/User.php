@@ -26,7 +26,9 @@ class User extends Authenticatable
         'github_registered_at',
         'gitlab_id',
         'gitlab_logged_in_at',
-        'gitlab_registered_at'
+        'gitlab_registered_at',
+        'app_logged_in_at',
+        'app_registered_at'
     ];
 
     /**
@@ -52,5 +54,7 @@ class User extends Authenticatable
         'github_registered_at' => 'datetime',
         'gitlab_logged_in_at' => 'datetime',
         'gitlab_registered_at' => 'datetime',
+        'app_logged_in_at' => 'datetime',
+        'app_registered_at' => 'datetime'
     ];
 }
