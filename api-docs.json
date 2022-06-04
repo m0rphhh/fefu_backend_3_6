@@ -156,6 +156,78 @@
                 }
             }
         },
+        "\/api\/catalog": {
+            "get": {
+                "tags": [
+                    "productCategories"
+                ],
+                "summary": "Display a listing of the resource",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ProductCategory"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/catalog\/{catalog}": {
+            "get": {
+                "tags": [
+                    "productCategories"
+                ],
+                "summary": "Display the specified resource",
+                "parameters": [
+                    {
+                        "name": "catalog",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/ProductCategory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "\/api\/appeal": {
             "post": {
                 "tags": [
@@ -307,6 +379,19 @@
                     }
                 }
             }
+        },
+        "\/api\/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -422,6 +507,21 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "ProductCategory": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "nullable": true
                     }
                 }
             },
