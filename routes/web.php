@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsWebController;
+use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\PageWebController;
 use App\Http\Controllers\Web\AppealController;
@@ -26,6 +27,8 @@ Route::get('/pages/{slug}', PageWebController::class);
 
 Route::get('/news', [ NewsWebController::class, 'getAllNews']);
 Route::get('/news/{slug}', [ NewsWebController::class, 'getNewsPage']);
+
+Route::get('/catalog/{slug?}', [ CatalogController::class, 'index'])->name('catalog');
 
 Route::get('/appeal', [ AppealController::class, 'show'])->name('appeal.show');
 Route::post('/appeal', [ AppealController::class, 'send'])->name('appeal.send');
