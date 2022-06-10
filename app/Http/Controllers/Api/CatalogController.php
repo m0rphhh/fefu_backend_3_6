@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryWithProductsResource;
 use App\Http\Resources\ProductCategoryResource;
 use App\Models\ProductCategory;
 use App\OpenApi\Responses\ListProductCategoriesResponse;
@@ -38,6 +37,6 @@ class CatalogController extends Controller
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
     public function show(string $slug)
     {
-        return CategoryWithProductsResource::make(ProductCategory::where('slug', $slug)->firstOrFail());
+        return ProductCategoryResource::make(ProductCategory::where('slug', $slug)->firstOrFail());
     }
 }

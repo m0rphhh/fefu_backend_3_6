@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Exception;
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
@@ -20,9 +21,13 @@ class CatalogController extends Controller
         }
 
         $categories = $query->get();
-        $products = ProductCategory::getTreeProductsBuilder($categories)
-            ->orderBy('id')
-            ->paginate();
+        try {
+            $products = ProductCategory::getTreeProductsBuilder($categories)
+                ->orderBy('id')
+                ->paginate();
+        } catch (Exception $exception) {
+            abort(422, $exception->getMessage());
+        }
 
         return view('catalog.catalog', ['categories' => $categories, 'products' => $products]);
     }

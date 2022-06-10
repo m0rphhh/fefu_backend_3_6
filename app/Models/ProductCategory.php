@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,8 +27,14 @@ class ProductCategory extends Model
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function getTreeProductsBuilder(Collection $categories): Builder
     {
+        if ($categories->isEmpty()) {
+            throw new Exception('categories were not created');
+        }
         $categoryIds = [];
 
         $collectCategoryIds = function (ProductCategory $category) use (&$categoryIds, &$collectCategoryIds) {

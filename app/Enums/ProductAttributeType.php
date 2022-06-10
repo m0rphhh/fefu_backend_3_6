@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class ProductAttributeType extends AbstractEnum
+Final Class ProductAttributeType extends AbstractEnum
 {
     public const STRING = 0;
     public const NUMERIC = 1;

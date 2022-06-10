@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use ReflectionClass;
 
-Class AbstractEnum
+Abstract Class AbstractEnum
 {
     public static function getConstants(): array
     {

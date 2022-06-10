@@ -40,7 +40,8 @@ Route::apiResource('catalog', CatalogController::class)->only([
 ]);
 
 Route::apiResource('product', ProductController::class)->only([
-    'show'
+    'show',
+    'index'
 ]);
 
 

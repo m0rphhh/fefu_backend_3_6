@@ -11,18 +11,18 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class ProductCategorySchema extends SchemaFactory implements Reusable
+class ProductListSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return AllOf|OneOf|AnyOf|Not|Schema
      */
     public function build(): SchemaContract
     {
-        return Schema::object('ProductCategory')
+        return Schema::object('Product')
             ->properties(
                 Schema::string('name'),
                 Schema::string('slug'),
-                Schema::integer('parent_id')->nullable(),
+                Schema::string('price'),
             );
     }
 }
