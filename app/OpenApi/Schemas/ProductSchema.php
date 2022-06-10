@@ -11,22 +11,27 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class ProductCategorySchema extends SchemaFactory implements Reusable
+class ProductSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return AllOf|OneOf|AnyOf|Not|Schema
      */
     public function build(): SchemaContract
     {
-        return Schema::object('ProductCategory')
+        return Schema::object('Product')
             ->properties(
                 Schema::string('name'),
                 Schema::string('slug'),
-                Schema::integer('parent_id')->nullable(),
-                Schema::array('products')->properties(
+                Schema::string('price'),
+                Schema::string('description'),
+                Schema::array('category')->properties(
                     Schema::string('name'),
                     Schema::string('slug'),
-                    Schema::string('price'),
+                    Schema::integer('parent_id')->nullable(),
+                ),
+                Schema::array('attributes')->properties(
+                    Schema::string('name'),
+                    Schema::string('value'),
                 ),
             );
     }

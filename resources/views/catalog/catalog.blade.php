@@ -10,6 +10,14 @@
 <body>
     Catalog
     @include('catalog.catalog_list', ['$categories', $categories])
+
+    @foreach($products as $product)
+        <a href={{ route('product', $product->slug) }}>
+            <h1> {{ $product->name }}</h1>
+        </a>
+        <h1> {{ $product->price }} руб.</h1>
+    @endforeach
+    {{ $products->links() }}
 </body>
 </html>
 
