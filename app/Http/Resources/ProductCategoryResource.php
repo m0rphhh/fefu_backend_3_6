@@ -17,7 +17,8 @@ class ProductCategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'parentId' => $this->parent_id
+            'parentId' => $this->parent_id,
+            'children' => ProductCategoryResource::collection($this->children)
         ];
     }
 }
