@@ -45,11 +45,7 @@ class ProductController extends Controller
             abort(422, $exception->getMessage());
         }
 
-
-        return new JsonResponse([
-            'products' => ProductListResource::collection($products),
-            'categories' => ProductCategoryResource::collection($categories)
-        ]);
+        return ProductListResource::collection($products);
     }
 
     /**
