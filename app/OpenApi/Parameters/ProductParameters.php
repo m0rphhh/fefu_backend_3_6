@@ -2,8 +2,8 @@
 
 namespace App\OpenApi\Parameters;
 
-use App\OpenApi\Schemas\ProductListSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
 
 class ProductParameters extends ParametersFactory
@@ -18,7 +18,30 @@ class ProductParameters extends ParametersFactory
                 ->name('category_slug')
                 ->description('Slug of needed category')
                 ->required(false)
-                ->schema(ProductListSchema::ref()),
+                ->schema(Schema::string()),
+
+            Parameter::query()
+                ->name('search_query')
+                ->description('Search query')
+                ->required(false)
+                ->schema(Schema::string()),
+
+            Parameter::query()
+                ->name('sort_mode')
+                ->description('Sort mode')
+                ->example('price_asc')
+                ->example('price_desc')
+                ->required(false)
+                ->schema(Schema::string()),
+
+            Parameter::query()
+                ->name('filters')
+                ->required(false)
+                ->schema(Schema::array()->items(
+                    Schema::array()->items(
+                        Schema::string()
+                    )
+                ))
         ];
     }
 }
