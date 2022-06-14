@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\PageWebController;
 use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/news', [ NewsWebController::class, 'getAllNews']);
 Route::get('/news/{slug}', [ NewsWebController::class, 'getNewsPage']);
 
 Route::get('/catalog/{slug?}', [ CatalogController::class, 'index'])->name('catalog');
+Route::get('/catalog/product/{slug}', [ ProductController::class, 'index'])->name('product');
 
 Route::get('/appeal', [ AppealController::class, 'show'])->name('appeal.show');
 Route::post('/appeal', [ AppealController::class, 'send'])->name('appeal.send');

@@ -2,13 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductCategoryResource extends JsonResource
+/** @mixin Product */
+class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
@@ -17,8 +18,10 @@ class ProductCategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'parentId' => $this->parent_id,
-            'children' => ProductCategoryResource::collection($this->children)
+            'price' => $this->price,
+            'description' => $this->description,
+            'category' => ProductCategoryResource::make($this->productCategory),
+            'attributes' => ProductAttributeResource::collection($this->sortedAttributeValues),
         ];
     }
 }

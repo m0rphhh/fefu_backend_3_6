@@ -228,6 +228,44 @@
                 }
             }
         },
+        "\/api\/product\/{product}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Display the specified resource",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "\/api\/appeal": {
             "post": {
                 "tags": [
@@ -522,6 +560,63 @@
                     "parent_id": {
                         "type": "integer",
                         "nullable": true
+                    },
+                    "products": {
+                        "type": "array",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "slug": {
+                                "type": "string"
+                            },
+                            "price": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "array",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "slug": {
+                                "type": "string"
+                            },
+                            "parent_id": {
+                                "type": "integer",
+                                "nullable": true
+                            }
+                        }
+                    },
+                    "attributes": {
+                        "type": "array",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             },
