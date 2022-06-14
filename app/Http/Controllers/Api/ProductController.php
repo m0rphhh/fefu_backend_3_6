@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ProductFilter;
 use App\Http\Requests\ProductListRequest;
-use App\Http\Resources\ProductCategoryResource;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -23,12 +23,18 @@ class ProductController extends Controller
 {
     private const PER_PAGE = 5;
 
+    /**
+     * Display the list of resources
+     *
+     * @param ProductListRequest $request
+     * @return JsonResponse
+     */
     #[OpenApi\Operation(tags: ['products'])]
     #[OpenApi\Response(factory: ListProductResponse::class, statusCode: 200)]
     #[OpenApi\Parameters(factory: ProductParameters::class)]
     public function index(ProductListRequest $request)
     {
-        $query = ProductCategory::query()->with('children', 'products');
+        $query = ProductCategory::query()->with('children');
 
         if (!$request->has('category_slug')) {
             $query->where('parent_id');
@@ -38,14 +44,36 @@ class ProductController extends Controller
 
         $categories = $query->get();
         try {
-            $products = ProductCategory::getTreeProductsBuilder($categories)
-                ->orderBy('id')
-                ->paginate(self::PER_PAGE);
+            $productQuery = ProductCategory::getTreeProductsBuilder($categories);
         } catch (Exception $exception) {
             abort(422, $exception->getMessage());
         }
 
-        return ProductListResource::collection($products);
+        $filters = ProductFilter::build($productQuery, $request->input('filters') ?? []);
+        ProductFilter::apply($productQuery, $request->input('filters') ?? []);
+
+        if ($request->has('search_query') && $request->input('search_query') !== null) {
+            $productQuery->search($request->input('search_query'));
+        }
+
+        if ($request->input('sort_mode') == 'price_asc') {
+            $productQuery->orderBy('price');
+        } else if ($request->input('sort_mode') == 'price_desc') {
+            $productQuery->orderBy('price', 'desc');
+        }
+
+        return new JsonResponse([
+            'products' => ProductListResource::collection(
+                $productQuery->orderBy('products.id')->paginate(self::PER_PAGE)
+            ),
+
+            'filters' => $filters,
+
+            'sort' => [
+                'order' => $request->input('sort_mode'),
+                'search' => $request->input('search_query')
+            ]
+        ]);
     }
 
     /**

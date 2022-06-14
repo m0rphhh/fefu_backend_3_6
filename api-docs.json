@@ -228,6 +228,87 @@
                 }
             }
         },
+        "\/api\/product": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Display the list of resources",
+                "parameters": [
+                    {
+                        "name": "category_slug",
+                        "in": "query",
+                        "description": "Slug of needed category",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search_query",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_mode",
+                        "in": "query",
+                        "description": "Sort mode",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "price_desc"
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/Product"
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        },
+                                        "filters": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Filter"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "\/api\/product\/{product}": {
             "get": {
                 "tags": [
@@ -453,6 +534,20 @@
                     }
                 }
             },
+            "Filter": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string"
+                    },
+                    "isSelected": {
+                        "type": "boolean"
+                    },
+                    "productCount": {
+                        "type": "integer"
+                    }
+                }
+            },
             "News": {
                 "type": "object",
                 "properties": {
@@ -560,20 +655,6 @@
                     "parent_id": {
                         "type": "integer",
                         "nullable": true
-                    },
-                    "products": {
-                        "type": "array",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "slug": {
-                                "type": "string"
-                            },
-                            "price": {
-                                "type": "string"
-                            }
-                        }
                     }
                 }
             },

@@ -2,6 +2,7 @@
 
 namespace App\OpenApi\Responses;
 
+use App\OpenApi\Schemas\FilterSchema;
 use App\OpenApi\Schemas\PaginatorLinksSchema;
 use App\OpenApi\Schemas\PaginatorMetaSchema;
 use App\OpenApi\Schemas\ProductListSchema;
@@ -19,6 +20,9 @@ class ListProductResponse extends ResponseFactory
                 ProductListSchema::ref('data'),
                 PaginatorLinksSchema::ref('links'),
                 PaginatorMetaSchema::ref('meta'),
+                Schema::array('filters')->items(
+                    FilterSchema::ref()
+                )
             ))
         );
     }
