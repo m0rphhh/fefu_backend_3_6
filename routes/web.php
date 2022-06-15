@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsWebController;
+use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\PageWebController;
@@ -47,5 +48,7 @@ Route::prefix('/oauth')->group(function () {
     Route::get('/{provider}/redirect', [ OAuthController::class, 'redirectToService'])->name('oauth.redirect');
     Route::get('/{provider}/login', [ OAuthController::class, 'login'])->name('oauth.login');
 });
+
+Route::get('/cart', CartController::class)->middleware('auth.optional');
 
 Route::get('/profile', [ AuthController::class, 'profile'])->middleware('auth')->name('profile');
