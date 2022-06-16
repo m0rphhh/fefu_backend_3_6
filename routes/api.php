@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\NewsApiController;
 use App\Http\Controllers\PageApiController;
@@ -56,3 +57,5 @@ Route::prefix('cart')->middleware('auth.optional:sanctum')->group(function () {
     Route::post('set_quantity', [CartController::class, 'setQuantity']);
     Route::get('show', [CartController::class, 'show']);
 });
+
+Route::post('/order/store', [ OrderController::class, 'store']);

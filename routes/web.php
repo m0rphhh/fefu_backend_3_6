@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\PageWebController;
 use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,6 @@ Route::prefix('/oauth')->group(function () {
 Route::get('/cart', CartController::class)->middleware('auth.optional');
 
 Route::get('/profile', [ AuthController::class, 'profile'])->middleware('auth')->name('profile');
+
+Route::get('/checkout', [ OrderController::class, 'index'])->middleware('auth')->name('checkout.get');
+Route::post('/checkout', [ OrderController::class, 'store'])->middleware('auth')->name('checkout.post');
