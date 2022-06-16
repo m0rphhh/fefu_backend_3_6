@@ -8,6 +8,7 @@ use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
 use App\OpenApi\RequestBodies\CartModificationRequestBody;
+use App\OpenApi\Responses\CartValidationErrorResponse;
 use App\OpenApi\Responses\ShowCartResponse;
 use Illuminate\Support\Facades\Auth;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
@@ -23,6 +24,7 @@ class CartController extends Controller
      */
     #[OpenApi\Operation(tags: ['cart'], method: 'POST')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
+    #[OpenApi\Response(factory: CartValidationErrorResponse::class, statusCode: 422)]
     #[OpenApi\RequestBody(factory: CartModificationRequestBody::class)]
     public function setQuantity(CartModificationRequest $request): CartResource
     {

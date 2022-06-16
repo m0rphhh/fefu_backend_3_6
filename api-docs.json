@@ -555,6 +555,33 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The modifications field is required."
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "properties": {
+                                                "modifications": {
+                                                    "type": "array",
+                                                    "example": [
+                                                        "The modifications field is required."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
