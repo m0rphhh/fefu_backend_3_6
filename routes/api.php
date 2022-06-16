@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\NewsApiController;
@@ -51,3 +52,7 @@ Route::post('/register', [ AuthController::class, 'register']);
 Route::post('/login', [ AuthController::class, 'login']);
 Route::post('/logout', [ AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+Route::prefix('cart')->middleware('auth.optional:sanctum')->group(function () {
+    Route::post('set_quantity', [CartController::class, 'setQuantity']);
+    Route::get('show', [CartController::class, 'show']);
+});
